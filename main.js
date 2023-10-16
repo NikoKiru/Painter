@@ -8,6 +8,8 @@ const canvas = document.querySelector("canvas"),
     saveImg = document.querySelector(".save-img"),
     ctx = canvas.getContext("2d");
 
+let history = [];
+let currentState = -1;
 
 let prevMouseX, prevMouseY, snapshot,
 isDrawing = false,
@@ -19,6 +21,10 @@ const setCanvasBackground = () => {
     ctx.fillStyle = "#fff";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     ctx.fillStyle = selectedColor;
+
+    // Save the initial state
+    history.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
+    currentState++;
 }
 
 window.addEventListener("load", () =>{
@@ -60,8 +66,12 @@ const startDraw = (e) => {
     ctx.lineWidth = brushWidth;
     ctx.strokeStyle = selectedColor;
     ctx.fillStyle = selectedColor;
+
+
     snapshot = ctx.getImageData(0, 0, canvas.width, canvas.height);
 }
+
+
 const drawing = (e) => {
     if (!isDrawing) return;
     ctx.putImageData(snapshot, 0, 0);
@@ -76,6 +86,20 @@ const drawing = (e) => {
         drawCircle(e);
     } else {
         drawTriangle(e);
+    }
+}
+
+const undoLastAction = () => {
+    if (currentState > 0) {
+        currentState--;
+        ctx.putImageData(history[currentState], 0, 0);
+    }
+}
+
+const redoLastAction = () => {
+    if (currentState < history.length - 1) {
+        currentState++;
+        ctx.putImageData(history[currentState], 0, 0);
     }
 }
 
@@ -107,6 +131,10 @@ colorPicker.addEventListener("change", () => {
 clearCanvas.addEventListener("click", () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     setCanvasBackground();
+
+    // Save the state after clearing
+    history.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
+    currentState++;
 });
 
 saveImg.addEventListener("click", () => {
@@ -116,6 +144,21 @@ saveImg.addEventListener("click", () => {
     link.click();
 });
 
+document.querySelector(".undo").addEventListener("click", undoLastAction);
+document.querySelector(".redo").addEventListener("click", redoLastAction);
+
+
+
 canvas.addEventListener("mousedown", startDraw);
 canvas.addEventListener("mousemove", drawing);
-canvas.addEventListener("mouseup", () => isDrawing = false);
+canvas.addEventListener("mouseup", () => {
+    isDrawing = false;
+
+    // Save the state after drawing
+    if (currentState < history.length - 1) {
+        history = history.slice(0, currentState + 1);
+    }
+    history.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
+    currentState++;
+});
+
