@@ -144,6 +144,13 @@ saveImg.addEventListener("click", () => {
 });
 
 document.querySelector(".undo").addEventListener("click", undoLastAction);
+
+document.addEventListener("keydown", function (event){
+    if (event.ctrlKey && event.key === "z") {
+        undoLastAction();
+    }
+});
+
 document.querySelector(".redo").addEventListener("click", redoLastAction);
 
 
