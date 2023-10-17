@@ -22,7 +22,6 @@ const setCanvasBackground = () => {
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     ctx.fillStyle = selectedColor;
 
-    // Save the initial state
     history.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
     currentState++;
 }
@@ -154,7 +153,6 @@ canvas.addEventListener("mousemove", drawing);
 canvas.addEventListener("mouseup", () => {
     isDrawing = false;
 
-    // Save the state after drawing
     if (currentState < history.length - 1) {
         history = history.slice(0, currentState + 1);
     }

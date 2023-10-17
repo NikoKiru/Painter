@@ -65,13 +65,15 @@ section{
     margin-top: 10px;
  }
  .colors .options{
-     display: flex;
-     justify-content: space-between;
+     display: grid;
+     grid-template-columns: repeat(5, 1fr);
+     grid-template-rows: repeat(2, 1fr);
+     gap: 5px;
  }
  .colors .option{
      height: 20px;
      width: 20px;
-     border-radius: 50%;
+     border-radius: 10%;
      margin-top: 3px;
      position: relative;
  }
@@ -86,10 +88,26 @@ section{
     background-color: red;
 }
 .colors .option:nth-child(4){
-    background-color: #6dd400;
+    background-color: yellow;
 }
 .colors .option:nth-child(5){
-    background-color: #4a98f7;
+    background-color: blue;
+}
+.colors .option:nth-child(6){
+    background-color: orange;
+}
+.colors .option:nth-child(7){
+    background-color: purple;
+}
+.colors .option:nth-child(8){
+    background-color: green;
+}
+.colors .option:nth-child(9){
+    background-color: saddlebrown;
+}
+
+.colors .option:nth-child(10){
+    background-color: grey;
 }
 .colors .option.selected::before{
     position: absolute;
