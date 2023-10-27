@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+/*-----------------------------------------Whole Page--------------------------------------------*/
 *{
     margin: 0;
     padding: 0;
@@ -12,6 +12,7 @@ body{
     min-height: 100vh;
     background: coral;
 }
+
 .container {
     display: flex;
     width: 100%;
@@ -24,6 +25,7 @@ section{
     border-radius: 7px;
 
 }
+/*--------------------------------------Tools board on the left----------------------------------*/
 .tools-board{
     width: 210px;
     padding: 15px 22px 0;
@@ -41,6 +43,7 @@ section{
     align-items: center;
     margin-bottom: 10px;
 }
+
 .option:is(:hover, .active) img{
     filter: brightness(0) saturate(100%) invert(68%) sepia(48%) saturate(3698%) hue-rotate(326deg) brightness(103%) contrast(101%);
 }
@@ -51,7 +54,7 @@ section{
 .option:is(:hover, .active) :where(span, label){
  color: #ff7f50;
 }
-
+/*--------------------------------------Tools board: Colors----------------------------------*/
 .option #fill-color{
     height: 14px;
     width: 14px;
@@ -109,6 +112,7 @@ section{
 .colors .option:nth-child(10){
     background-color: grey;
 }
+/*--------------------------------------Colors when selected get ring----------------------------------*/
 .colors .option.selected::before{
     position: absolute;
     content: "";
@@ -128,6 +132,7 @@ section{
     opacity: 0;
     cursor: pointer;
 }
+/*--------------------------------------Buttons ----------------------------------*/
 .buttons button{
     width: 100%;
     color: #fff;
@@ -153,7 +158,7 @@ section{
     background: #FF7F50FF;
     border: 1px solid #FF7F50FF ;
 }
-
+/*--------------------------------------Undo Redo Operations----------------------------------*/
 .operations {
     display: flex;
     justify-content: space-around;
@@ -176,7 +181,7 @@ section{
     color: black;
     border: 1px solid #6c757d
 }
-
+/*--------------------------------------Drawing board----------------------------------*/
 .drawing-board{
     flex: 1;
 }
